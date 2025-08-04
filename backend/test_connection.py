@@ -1,7 +1,7 @@
 from database import engine
 
 try:
-    with engine.connect() as connection:
+    with engine.connect():
         print("🟢 Conectado com sucesso ao PostgreSQL!")
 
 except Exception as error:
