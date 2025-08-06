@@ -1,3 +1,4 @@
+# pylint: disable=unused-import,no-member
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -6,6 +7,9 @@ from sqlalchemy import pool
 from alembic import context
 
 from database import Base
+import models.user 
+import models.category 
+import models.note 
 import os
 from dotenv import load_dotenv
 

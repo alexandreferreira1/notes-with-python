@@ -9,7 +9,7 @@ class Note(Base):
 
     id = Column(Integer, autoincrement=True, primary_key=True)
     title = Column(String(100), nullable=True)
-    description = Column(String, nullable=False)
+    content = Column(String, nullable=False)
     position = Column(Integer, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, nullable=True)
