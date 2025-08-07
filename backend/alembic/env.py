@@ -7,9 +7,9 @@ from sqlalchemy import pool
 from alembic import context
 
 from database import Base
-import models.user 
-import models.category 
-import models.note 
+import users.models 
+import categories.models 
+import notes.models 
 import os
 from dotenv import load_dotenv
 
