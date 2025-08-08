@@ -1,10 +1,12 @@
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from database import Base
+from base import Base
 import uuid
 from datetime import datetime
+from typing import TYPE_CHECKING
 
+  
 
 class User(Base):
     __tablename__ = "users"
@@ -18,3 +20,6 @@ class User(Base):
 
     # Relacionamentos
     categories = relationship("Category", back_populates="user", cascade="all, delete-orphan")
+
+if TYPE_CHECKING:
+    from categories.models import Category
