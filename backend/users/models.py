@@ -16,7 +16,7 @@ class User(Base):
     email = Column(String(100), unique=True, nullable=False)
     password = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
+    updated_at = Column(DateTime, onupdate=datetime.utcnow, nullable=True)
 
     # Relacionamentos
     categories = relationship("Category", back_populates="user", cascade="all, delete-orphan")
