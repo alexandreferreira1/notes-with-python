@@ -4,7 +4,7 @@ from users.schemas import UserCreate
 from datetime import datetime
 import uuid
 
-def create_user(db: Session, user_data: UserCreate) -> User:
+def create_user(db: Session, user_data: UserCreate):
         new_user = User(
                 id=uuid.uuid4(),
                 name=user_data.name,
