@@ -6,7 +6,7 @@ from datetime import datetime
 class NoteBase(BaseModel):
     title: Optional[str] = Field(None, max_length=100)
     content: str
-    position: int
+    position: Optional[int] = None
     category_id: int
     is_favorite: bool = False
     pinned: bool = False
