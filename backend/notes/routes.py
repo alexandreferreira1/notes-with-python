@@ -3,14 +3,30 @@ from sqlalchemy.orm import Session
 from typing import List
 from notes import crud, schemas
 from database import get_db
+from uuid import UUID
 
 router = APIRouter()
 
 @router.post("/", response_model=schemas.NoteOut, status_code=status.HTTP_201_CREATED)
-def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db)):
-    return crud.create_note(db, note_data=note)
+def create_note(note_data: schemas.NoteCreate, db: Session = Depends(get_db)):
+    return crud.create_note(db, note_data)
 
-@router.get("/", response_model=List[schemas.NoteOut])
-def read_notes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    notes = crud.get_notes(db, skip=skip, limit=limit)
-    return notes
+@router.get("/users/{user_id}/notes", response_model=List[schemas.NoteOut])
+def read_user_notes(user_id: UUID, db: Session = Depends(get_db)):
+    return crud.get_notes_by_user(db, user_id)
+
+@router.patch("/{note_id}", response_model=schemas.NoteOut)
+def update_note(note_id: int, note_data: schemas.NoteUpdate, db: Session = Depends(get_db)):
+    updated_note = crud.update_note(db, note_id, note_data)
+
+    if not updated_note:
+        raise HTTPException(status_code=404, detail="Nota não encontrada")
+    return updated_note
+
+@router.delete("/{note_id}", response_model=schemas.NoteOut)
+def delete_note(note_id: int, db: Session = Depends(get_db)):
+    deleted_note = crud.delete_note(db, note_id)
+
+    if not deleted_note:
+        raise HTTPException(status_code=404, detail="Nota não encontrada")
+    return deleted_note
