@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import NoteCard from "../components/NoteCard";
-import type { Note } from "../../types";
 
-const AllNotes: React.FC = () => {
+const AllNotes = () => {
   const [selectedSection, setSelectedSection] = useState("All Notes");
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const loadNotes = async () => {
@@ -20,9 +19,9 @@ const AllNotes: React.FC = () => {
           throw new Error(`Erro ao buscar notas: ${res.status} ${res.statusText}`);
         }
 
-        const data: Note[] = await res.json();
+        const data = await res.json();
         setNotes(data);
-      } catch (err: unknown) {
+      } catch (err) {
         if (err instanceof Error) {
           setError(err.message);
         } else {

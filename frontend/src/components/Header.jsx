@@ -1,7 +1,7 @@
 import React from "react";
-import SearchBar from "./SearchBar.tsx";
+import SearchBar from "./SearchBar.jsx";
 
-const Header: React.FC = () => {
+const Header = () => {
   return (
     <div className="header">
       <h1>All Notes</h1>

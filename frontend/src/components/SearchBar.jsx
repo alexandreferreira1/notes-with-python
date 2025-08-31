@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchBar: React.FC = () => {
+const SearchBar = () => {
   return (
     <input type="text" placeholder="Search..." className="search-bar" />
   );

@@ -1,11 +1,6 @@
 import React from "react";
 
-interface SidebarProps {
-  selected: string;
-  onSelect: (section: string) => void;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ selected, onSelect }) => {
+const Sidebar = ({ selected, onSelect }) => {
   const sections = ["All Notes", "Categories", "Favorites", "IA Assistant", "Archived", "Deleted"];
 
   return (
