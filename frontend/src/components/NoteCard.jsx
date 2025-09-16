@@ -1,5 +1,3 @@
-import React from "react";
-
 const NoteCard = ({ note }) => {
   return (
     <div className="note-card">

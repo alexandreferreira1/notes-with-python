@@ -1,8 +1,25 @@
-export const fetchNotes = async () => {
-  const res = await fetch("http://127.0.0.1:8000/notes/user/347cc90f-c9c0-46dc-b9d0-aeb041827a1d");
-  if (!res.ok) {
-    throw new Error("Failed to fetch notes");
-  }
-  const data = await res.json();
-  return data;
+const API_URL = "http://127.0.0.1:8000/notes";
+
+export const fetchNotes = async (userId) => {
+  const res = await fetch(`${API_URL}/user/${userId}`);
+  if (!res.ok) throw new Error("Failed to fetch notes");
+  return res.json();
+};
+
+export const fetchFavoriteNotes = async (userId) => {
+  const res = await fetch(`${API_URL}/user/${userId}/favorites`);
+  if (!res.ok) throw new Error("Failed to fetch favorite notes");
+  return res.json();
+};
+
+export const fetchArchivedNotes = async (userId) => {
+  const res = await fetch(`${API_URL}/user/${userId}/archived`);
+  if (!res.ok) throw new Error("Failed to fetch archived notes");
+  return res.json();
+};
+
+export const fetchDeletedNotes = async (userId) => {
+  const res = await fetch(`${API_URL}/user/${userId}/deleted`);
+  if (!res.ok) throw new Error("Failed to fetch deleted notes");
+  return res.json();
 };
