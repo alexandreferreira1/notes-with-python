@@ -26,6 +26,9 @@ def read_favorites_notes(user_id: UUID, order: str = "desc", db: Session = Depen
 def read_archived_notes(user_id: UUID, order: str = "desc", db: Session = Depends(get_db)):
     return crud.get_archived_notes_user(db, user_id, order=order)
 
+@router.get('/user/{user_id}/deleted', response_model=List[schemas.NoteOut])
+def read_deleted_notes(user_id: UUID, order: str = "desc", db: Session = Depends(get_db)):
+    return crud.get_deleted_notes_user(db, user_id, order=order)
 
 @router.patch("/{note_id}", response_model=schemas.NoteOut)
 def update_note(note_id: int, note_data: schemas.NoteUpdate, db: Session = Depends(get_db)):

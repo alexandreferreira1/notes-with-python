@@ -73,11 +73,28 @@ def get_notes_by_user(db: Session, user_id: UUID, order: str = "desc"):
     return get_notes(db, user_id, order, archived=False, prioritize_pinned=True)
 
 def get_favorites_notes_user(db: Session, user_id: UUID, order: str = "desc"):
-    return get_notes(db, user_id, order, is_favorite=True)
+    return get_notes(db, user_id, order, is_favorite=True, archived=False)
 
 def get_archived_notes_user(db: Session, user_id: UUID, order: str = "desc"):
     return get_notes(db, user_id, order, archived=True)
 
+def get_deleted_notes_user(db: Session, user_id: UUID, order: str = "desc"):
+    order_field = func.coalesce(Note.updated_at, Note.created_at)
+
+    query = (
+        db.query(Note)
+        .join(Note.category)
+        .options(joinedload(Note.category))  # eager load categoria
+        .filter(Category.user_id == user_id, Note.deleted_at.isnot(None))
+    )
+
+    # Ordenação
+    if order == "asc":
+        query = query.order_by(asc(order_field))
+    else:
+        query = query.order_by(desc(order_field))
+
+    return query.all()
 
 def update_note(db: Session, note_id: int, note_data: NoteUpdate):
     note = db.query(Note).filter(Note.id == note_id,
