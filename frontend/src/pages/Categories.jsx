@@ -1,21 +1,19 @@
-// src/pages/Deleted.jsx
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import NoteCard from "../components/NoteCard";
-import { fetchDeletedNotes } from "../api/notes";
+import { fetchCategories } from "../api/categories";
 
-const Deleted = () => {
-  const [notes, setNotes] = useState([]);
+const Categories = () => {
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const loadDeleted = async () => {
+    const loadCategories = async () => {
       try {
-        const userId = "347cc90f-c9c0-46dc-b9d0-aeb041827a1d"; // depois puxamos dinâmico
-        const data = await fetchDeletedNotes(userId);
-        setNotes(data);
+        const userId = "347cc90f-c9c0-46dc-b9d0-aeb041827a1d";
+        const data = await fetchCategories(userId);
+        setCategories(data);
       } catch (err) {
         if (err instanceof Error) setError(err.message);
         else setError("Erro desconhecido");
@@ -24,22 +22,26 @@ const Deleted = () => {
       }
     };
 
-    loadDeleted();
+    loadCategories();
   }, []);
 
-  if (loading) return <p>Loading deleted notes...</p>;
+  if (loading) return <p>Loading categories...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="app-container">
-      <Sidebar selected="Deleted" />
+      <Sidebar selected="Categories" />
       <div className="main-content">
         <Header />
         <div className="notes-grid">
-          {notes.length > 0 ? (
-            notes.map((note) => <NoteCard key={note.id} note={note} />)
+          {categories.length > 0 ? (
+            categories.map((cat) => (
+              <div key={cat.id} className="note-card">
+                <h3>{cat.name}</h3>
+              </div>
+            ))
           ) : (
-            <p>No deleted notes found.</p>
+            <p>No categories found.</p>
           )}
         </div>
       </div>
@@ -47,4 +49,4 @@ const Deleted = () => {
   );
 };
 
-export default Deleted;
+export default Categories;

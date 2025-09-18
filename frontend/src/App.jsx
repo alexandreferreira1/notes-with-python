@@ -3,6 +3,7 @@ import NotesPage from "./pages/NotesPage";
 import Favorites from "./pages/Favorites";
 import Archived from "./pages/Archived";
 import Deleted from "./pages/Deleted";
+import Categories from "./pages/Categories";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/archived" element={<Archived />} />
         <Route path="/deleted" element={<Deleted />} />
-        {/* adicione outras rotas quando necessário */}
+        <Route path="/categories" element={<Categories />} />
       </Routes>
     </Router>
   );
